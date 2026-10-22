@@ -1,2 +1,28 @@
 package com.chapuza.chapuzappandroid.core.navigation
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.chapuza.chapuzappandroid.features.home.presentation.HomeScreen
+import com.chapuza.chapuzappandroid.features.home.presentation.ProfileScreen
+import com.chapuza.chapuzappandroid.features.home.presentation.AppointmentsScreen
+import com.chapuza.chapuzappandroid.features.messages.presentation.MessagesScreen
+
+@Composable
+fun AppNavHost(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    NavHost(
+        navController = navController,
+        startDestination = HomeRoute,
+        modifier = modifier,
+    ) {
+        composable<HomeRoute> { HomeScreen() }
+        composable<AppointmentsRoute> { AppointmentsScreen() }
+        composable<MessagesRoute> { MessagesScreen() }
+        composable<ProfileRoute> { ProfileScreen() }
+    }
+}
