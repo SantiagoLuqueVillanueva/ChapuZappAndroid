@@ -1,14 +1,20 @@
 package com.chapuza.chapuzappandroid.core.navigation
 
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializable //Importamos el @Serializable
 
-@Serializable //Esto serializa el objeto "HomeRoute" a texto para que el Navigation pueda aceptarlo como ruta
-object HomeRoute
-@Serializable
-object ProfileRoute
+//@Serializable convierte los objetos Route a texto para que el Navigation pueda aceptarlo como ruta
+// Declaramos los objetos necesarios para cada ruta
 
 @Serializable
-object AppointmentsRoute
+sealed class Routes(val route:String) {
+    @Serializable
+    object HomeRoute: Routes("home")
+    @Serializable
+    object ProfileRoute: Routes("profile")
 
-@Serializable
-object MessagesRoute
+    @Serializable
+    object AppointmentsRoute: Routes("appointments")
+
+    @Serializable
+    object MessagesRoute:Routes("messages")
+}

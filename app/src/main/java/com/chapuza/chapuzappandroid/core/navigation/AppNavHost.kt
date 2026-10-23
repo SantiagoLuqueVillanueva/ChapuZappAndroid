@@ -17,12 +17,12 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = HomeRoute,
+        startDestination = Routes.HomeRoute,
         modifier = modifier,
     ) {
-        composable<HomeRoute> { HomeScreen() }
-        composable<AppointmentsRoute> { AppointmentsScreen() }
-        composable<MessagesRoute> { MessagesScreen() }
-        composable<ProfileRoute> { ProfileScreen() }
+        composable<Routes.HomeRoute> { HomeScreen() }
+        composable<Routes.AppointmentsRoute> { AppointmentsScreen() }
+        composable<Routes.MessagesRoute> { MessagesScreen() }
+        composable<Routes.ProfileRoute> { ProfileScreen() }
     }
 }
