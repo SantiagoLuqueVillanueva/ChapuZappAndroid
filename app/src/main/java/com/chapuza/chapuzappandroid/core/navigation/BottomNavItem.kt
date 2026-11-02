@@ -1,10 +1,7 @@
 package com.chapuza.chapuzappandroid.core.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.chapuza.chapuzappandroid.core.navigation.Routes.ProfileRoute
 
@@ -15,8 +12,8 @@ data class BottomNavItem(
 )
 
 val bottomNavItems = listOf(
-    BottomNavItem("Inicio", Icons.Filled.Home, Routes.HomeRoute),
-    BottomNavItem("Citas", Icons.Filled.DateRange, Routes.AppointmentsRoute),
-    BottomNavItem("Mensajes", Icons.Filled.Email, Routes.MessagesRoute),
-    BottomNavItem("Perfil", Icons.Filled.Person, ProfileRoute)
+    BottomNavItem("Inicio", Icons.Outlined.Home, Routes.HomeRoute),
+    BottomNavItem("Citas", Icons.Outlined.DateRange, Routes.AppointmentsRoute),
+    BottomNavItem("Mensajes", Icons.Outlined.Email, Routes.MessagesRoute),
+    BottomNavItem("Perfil", Icons.Outlined.Person, ProfileRoute)
 )
