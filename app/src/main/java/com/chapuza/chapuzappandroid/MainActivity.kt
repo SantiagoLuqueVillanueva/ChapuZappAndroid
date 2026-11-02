@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.chapuza.chapuzappandroid.core.navigation.MainScreen
+import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -12,7 +13,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MainScreen()
+            ChapuZappAndroidTheme{
+                MainScreen()
+            }
+
         }
     }
 }

@@ -8,62 +8,47 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-private val DarkColorScheme = darkColorScheme(
-    primary = Mint,
-    onPrimary = DarkGreen,
-    secondary = Teal,
-    tertiary = MintLight,
-    onTertiary = DarkGreen,
-    background = DarkGreen,
-    onBackground = Background,
-    surface = DarkGreen,
-    onSurface = Background
-)
 
 private val LightColorScheme = lightColorScheme(
-    primary = Mint,
-    onPrimary = DarkGreen,
+    primary = Dark,
+    onPrimary = White,
+    primaryContainer = Mint,
+    onPrimaryContainer = Dark,
     secondary = Teal,
-    tertiary = MintLight,
-    onTertiary = DarkGreen,
-    background = Background,
-    onBackground = DarkGreen,
-    surface = Background,
-    onSurface = DarkGreen
+    onSecondary = White,
+    secondaryContainer = Mint,
+    onSecondaryContainer = Dark,
+    tertiary = MintLine,
+    tertiaryContainer = MintSoft,
+    onTertiaryContainer = Dark,
+    background = Bg,
+    onBackground = Dark,
+    surface = Bg,
+    onSurface = Dark,
+    surfaceVariant = Busy,
+    onSurfaceVariant = Muted,
+    surfaceContainerLowest = White,
+    surfaceContainerLow = Card,
+    surfaceContainer = Sheet,
+    surfaceContainerHigh = Sheet,
+    surfaceContainerHighest = MintSoft,
+    outline = MintLine,
+    outlineVariant = Border,
+    scrim = Dark
 )
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-
 
 @Composable
 fun ChapuZappAndroidTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val colorScheme = LightColorScheme
 
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
+        content = content,
+        shapes = Shapes
     )
 }

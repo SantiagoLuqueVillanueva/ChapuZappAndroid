@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ChapuZappAndroid</string>
+    <string name="home_label">Inicio</string>
+    <string name="appointments_label">Citas</string>
+    <string name="chat_label">Mensajes</string>
+    <string name="profile_label">Perfil</string>
+</resources>
