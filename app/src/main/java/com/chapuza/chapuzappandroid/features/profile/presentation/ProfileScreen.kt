@@ -1,4 +1,4 @@
-package com.chapuza.chapuzappandroid.features.home.presentation
+package com.chapuza.chapuzappandroid.features.profile.presentation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
