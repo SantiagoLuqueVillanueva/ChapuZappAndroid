@@ -11,7 +11,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter.Companion.tint
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -22,11 +21,11 @@ import kotlin.math.roundToInt
 fun RatingStars(
     rating: Float,
     modifier: Modifier = Modifier,
-    starSize: Dp =16.dp,
-){
+    starSize: Dp = 16.dp,
+) {
     Row(
-        modifier=modifier
-    ){
+        modifier = modifier
+    ) {
         repeat(5) { index ->
             Icon(
                 imageVector = Icons.Filled.Star,

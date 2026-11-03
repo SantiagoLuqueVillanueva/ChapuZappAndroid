@@ -1,13 +1,10 @@
 package com.chapuza.chapuzappandroid.core.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.MaterialTheme
@@ -25,15 +22,20 @@ fun ChapuChip(
     selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-){
+) {
     FilterChip(
-        selected=selected,
-        onClick=onClick,
+        selected = selected,
+        onClick = onClick,
         modifier = modifier.height(40.dp),
-        label = {Text(text, style= ChipText)},
+        label = { Text(text, style = ChipText) },
         shape = CircleShape,
         colors = FilterChipDefaults.filterChipColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
-        border = FilterChipDefaults.filterChipBorder(enabled = true, selected=selected, borderColor = MaterialTheme.colorScheme.outlineVariant, selectedBorderColor = MaterialTheme.colorScheme.outline),
+        border = FilterChipDefaults.filterChipBorder(
+            enabled = true,
+            selected = selected,
+            borderColor = MaterialTheme.colorScheme.outlineVariant,
+            selectedBorderColor = MaterialTheme.colorScheme.outline
+        ),
     )
 }
 

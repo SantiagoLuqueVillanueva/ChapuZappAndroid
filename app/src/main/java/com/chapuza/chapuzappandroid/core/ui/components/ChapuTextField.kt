@@ -68,7 +68,13 @@ private fun ChapuTextFieldPreview() {
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             ChapuTextField(value = "", onValueChange = {}, label = "Correo", leadingIcon = Icons.Outlined.Email)
-            ChapuTextField(value = "", onValueChange = {}, label = "Correo", leadingIcon = Icons.Outlined.Email, errorMessage = "Correo no válido")
+            ChapuTextField(
+                value = "",
+                onValueChange = {},
+                label = "Correo",
+                leadingIcon = Icons.Outlined.Email,
+                errorMessage = "Correo no válido"
+            )
             ChapuTextField(
                 value = "secreto",
                 onValueChange = {},

@@ -56,7 +56,11 @@ fun ProfessionalCard(
             }
             Column(modifier = Modifier.weight(1f)) {
                 Text(name, style = MaterialTheme.typography.titleSmall)
-                Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(
+                    subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
                 RatingStars(rating = rating)
             }
             Text(price, style = MaterialTheme.typography.labelMedium)

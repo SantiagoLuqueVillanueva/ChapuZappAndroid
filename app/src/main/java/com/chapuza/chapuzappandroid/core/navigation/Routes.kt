@@ -6,15 +6,16 @@ import kotlinx.serialization.Serializable //Importamos el @Serializable
 // Declaramos los objetos necesarios para cada ruta
 
 @Serializable
-sealed class Routes(val route:String) {
+sealed class Routes(val route: String) {
     @Serializable
-    object HomeRoute: Routes("home")
-    @Serializable
-    object ProfileRoute: Routes("profile")
+    object HomeRoute : Routes("home")
 
     @Serializable
-    object AppointmentsRoute: Routes("appointments")
+    object ProfileRoute : Routes("profile")
 
     @Serializable
-    object MessagesRoute:Routes("messages")
+    object AppointmentsRoute : Routes("appointments")
+
+    @Serializable
+    object MessagesRoute : Routes("messages")
 }
