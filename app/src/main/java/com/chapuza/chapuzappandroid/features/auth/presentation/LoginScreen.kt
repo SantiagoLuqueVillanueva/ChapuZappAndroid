@@ -1,5 +1,6 @@
 package com.chapuza.chapuzappandroid.features.auth.presentation
 
+import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -33,7 +34,6 @@ import com.chapuza.chapuzappandroid.core.ui.components.ChapuButton
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButtonVariant
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTextField
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
-import android.util.Patterns
 
 @Composable
 fun LoginScreen(
@@ -43,9 +43,10 @@ fun LoginScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
-    var submitted by remember {mutableStateOf(false)}
-    val emailError: String? = if (submitted && !Patterns.EMAIL_ADDRESS.matcher(email).matches())"Introduce un correo válido" else null
-    val passwordError: String? = if (submitted && password.isBlank())"Introduce tu contraseña" else null
+    var submitted by remember { mutableStateOf(false) }
+    val emailError: String? =
+        if (submitted && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) "Introduce un correo válido" else null
+    val passwordError: String? = if (submitted && password.isBlank()) "Introduce tu contraseña" else null
 
     Column(
         Modifier
@@ -80,7 +81,7 @@ fun LoginScreen(
                 onValueChange = { email = it },
                 label = "Correo electrónico",
                 leadingIcon = Icons.Outlined.Email,
-                errorMessage=emailError
+                errorMessage = emailError
             )
             Spacer(
                 Modifier.height(12.dp)
@@ -91,7 +92,7 @@ fun LoginScreen(
                 label = "Contraseña",
                 leadingIcon = Icons.Outlined.Lock,
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                errorMessage=passwordError,
+                errorMessage = passwordError,
                 trailingIcon = {
                     IconButton(onClick = {
                         passwordVisible = !passwordVisible
@@ -109,7 +110,8 @@ fun LoginScreen(
                 modifier = Modifier.align(Alignment.End),
                 onClick = {})
             Spacer(Modifier.height(8.dp))
-            ChapuButton(text = "Entrar",
+            ChapuButton(
+                text = "Entrar",
                 onClick = {
                     submitted = true
                     val emailOk = Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -118,7 +120,8 @@ fun LoginScreen(
                         onLoginClick()
                     }
                 },
-                modifier = Modifier.fillMaxWidth(),)
+                modifier = Modifier.fillMaxWidth(),
+            )
             Spacer(Modifier.weight(1f))
             Row(
                 modifier = Modifier.align(Alignment.CenterHorizontally),

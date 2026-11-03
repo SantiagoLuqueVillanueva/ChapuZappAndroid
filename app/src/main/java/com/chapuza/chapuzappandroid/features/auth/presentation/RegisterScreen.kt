@@ -1,6 +1,6 @@
 package com.chapuza.chapuzappandroid.features.auth.presentation
 
-import android.R.attr.text
+import android.util.Patterns
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,6 +41,13 @@ fun RegisterScreen(
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }
+    var submitted by remember { mutableStateOf(false) }
+    val nameError: String? = if (submitted && name.isBlank()) "Introduce tu nombre" else null
+    val emailError: String? =
+        if (submitted && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) "Introduce un correo válido" else null
+    val passwordError: String? = if (submitted && password.length < 8) "Mínimo 8 caracteres" else null
+    val confirmError: String? = if (submitted && confirmPassword != password) "Las contraseñas no coinciden" else null
+
     Column(
         Modifier
             .fillMaxSize()
@@ -58,21 +65,23 @@ fun RegisterScreen(
                 value = name,
                 onValueChange = { name = it },
                 label = "Nombre y apellidos",
-                leadingIcon = Icons.Outlined.Person
+                leadingIcon = Icons.Outlined.Person,
+                errorMessage = nameError
             )
             ChapuTextField(
                 value = email,
                 onValueChange = { email = it },
                 label = "Correo electrónico",
                 leadingIcon = Icons.Outlined.Email,
-
-                )
+                errorMessage = emailError
+            )
             ChapuTextField(
                 value = password,
                 onValueChange = { password = it },
                 label = "Contraseña (mín. 8 caracteres)",
                 leadingIcon = Icons.Outlined.Lock,
                 visualTransformation = PasswordVisualTransformation(),
+                errorMessage = passwordError
             )
             ChapuTextField(
                 value = confirmPassword,
@@ -80,6 +89,7 @@ fun RegisterScreen(
                 label = "Repetir contraseña",
                 leadingIcon = Icons.Outlined.Lock,
                 visualTransformation = PasswordVisualTransformation(),
+                errorMessage = confirmError
             )
             ChapuTextField(
                 value = address,
@@ -91,17 +101,25 @@ fun RegisterScreen(
         }
         ChapuButton(
             text = "Crear cuenta",
-            onClick = onRegisterClick,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-        )
+                .padding(horizontal = 16.dp),
+            onClick = {
+                submitted = true
+                val nameOk = (name.isNotBlank())
+                val emailOk = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                val passwordOk = password.length >= 8
+                val confirmPasswordOk = (password == confirmPassword)
+                if (nameOk && emailOk && passwordOk && confirmPasswordOk) {
+                    onRegisterClick()
+                }
+            })
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
         )
         {
-            Text("¿Ya tienes cuenta?",color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("¿Ya tienes cuenta?", color = MaterialTheme.colorScheme.onSurfaceVariant)
             ChapuButton(text = "Inicia sesión", onClick = onLoginClick, variant = ChapuButtonVariant.Text)
         }
     }
