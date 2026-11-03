@@ -23,9 +23,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chapuza.chapuzappandroid.R
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButton
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButtonVariant
+import com.chapuza.chapuzappandroid.core.ui.components.ChapuCard
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuChip
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTextField
-import com.chapuza.chapuzappandroid.core.ui.components.ProfessionalCard
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 
 @Composable
@@ -54,14 +54,13 @@ private fun HomeContent(
     ) {
         HomeHeader(state.userName, state.location, Modifier.padding(horizontal = 16.dp))
 
-        Box(modifier = Modifier.padding(horizontal = 16.dp)) {
             ChapuTextField(
                 value = "",
                 onValueChange = {},
                 label = stringResource(R.string.home_search_hint),
                 leadingIcon = Icons.Outlined.Search,
+                modifier = Modifier.padding(horizontal = 16.dp),
             )
-        }
 
         // Dos filas de chips que se desplazan juntas
         Column(
@@ -104,7 +103,7 @@ private fun HomeContent(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             state.professionals.forEach { pro ->
-                ProfessionalCard(
+                ChapuCard(
                     name = pro.name,
                     subtitle = stringResource(
                         R.string.home_professional_subtitle,
@@ -113,7 +112,6 @@ private fun HomeContent(
                     ),
                     rating = pro.rating,
                     price = stringResource(R.string.home_price_from, pro.priceFromPerHour),
-                    onClick = {},
                 )
             }
         }
