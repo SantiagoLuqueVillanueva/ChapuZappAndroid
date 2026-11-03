@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.material3)
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
