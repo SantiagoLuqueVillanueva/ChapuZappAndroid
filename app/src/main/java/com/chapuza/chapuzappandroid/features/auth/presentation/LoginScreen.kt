@@ -1,6 +1,7 @@
 package com.chapuza.chapuzappandroid.features.auth.presentation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -42,76 +43,82 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     Column(
-        modifier = Modifier
+        Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 24.dp),
+            .background(MaterialTheme.colorScheme.background)
     ) {
-        Image(
-            painter = painterResource(R.drawable.logo_login_horizontal),
-            contentDescription = "ChapuZapp",
+        Column(
             modifier = Modifier
-                .height(44.dp)
-                .align(Alignment.CenterHorizontally),
-        )
-        Spacer(
-            Modifier.height(24.dp)
-        )
-        Text("Inicia sesión", style = MaterialTheme.typography.headlineSmall)
-        Spacer(Modifier.height(4.dp))
-        Text(
-            "Accede para reservar...",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        Spacer(Modifier.height(24.dp))
-        ChapuTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = "Correo electrónico",
-            leadingIcon = Icons.Outlined.Email
-        )
-        Spacer(
-            Modifier.height(12.dp)
-        )
-        ChapuTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = "Contraseña",
-            leadingIcon = Icons.Outlined.Lock,
-            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            trailingIcon = {
-                IconButton(onClick = {
-                    passwordVisible = !passwordVisible
-                }) {
-                    Icon(
-                        painter = painterResource(if (passwordVisible) R.drawable.ic_visibility_off else R.drawable.ic_visibility),
-                        contentDescription = "Mostrar contraseña"
-                    )
-                }
-            },
-        )
-        ChapuButton(
-            "He olvidado mi contraseña",
-            variant = ChapuButtonVariant.Text,
-            modifier = Modifier.align(Alignment.End),
-            onClick = { TODO() })
-        Spacer(Modifier.height(8.dp))
-        ChapuButton("Entrar", onClick = onLoginClick, modifier = Modifier.fillMaxWidth())
-        Spacer(Modifier.weight(1f))
-        Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.CenterVertically
-        )
-        {
+                .fillMaxSize()
+                .padding(horizontal = 16.dp, vertical = 24.dp),
+        ) {
+            Image(
+                painter = painterResource(R.drawable.logo_login_horizontal),
+                contentDescription = "ChapuZapp",
+                modifier = Modifier
+                    .height(44.dp)
+                    .align(Alignment.CenterHorizontally),
+            )
+            Spacer(
+                Modifier.height(24.dp)
+            )
+            Text("Inicia sesión", style = MaterialTheme.typography.headlineSmall)
+            Spacer(Modifier.height(4.dp))
             Text(
-                "¿No tienes cuenta?",
+                "Accede para reservar...",
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            ChapuButton("Regístrate", variant = ChapuButtonVariant.Text, onClick = onRegisterClick)
+            Spacer(Modifier.height(24.dp))
+            ChapuTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = "Correo electrónico",
+                leadingIcon = Icons.Outlined.Email
+            )
+            Spacer(
+                Modifier.height(12.dp)
+            )
+            ChapuTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = "Contraseña",
+                leadingIcon = Icons.Outlined.Lock,
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                trailingIcon = {
+                    IconButton(onClick = {
+                        passwordVisible = !passwordVisible
+                    }) {
+                        Icon(
+                            painter = painterResource(if (passwordVisible) R.drawable.ic_visibility_off else R.drawable.ic_visibility),
+                            contentDescription = "Mostrar contraseña"
+                        )
+                    }
+                },
+            )
+            ChapuButton(
+                "He olvidado mi contraseña",
+                variant = ChapuButtonVariant.Text,
+                modifier = Modifier.align(Alignment.End),
+                onClick = { TODO() })
+            Spacer(Modifier.height(8.dp))
+            ChapuButton("Entrar", onClick = onLoginClick, modifier = Modifier.fillMaxWidth())
+            Spacer(Modifier.weight(1f))
+            Row(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                verticalAlignment = Alignment.CenterVertically
+            )
+            {
+                Text(
+                    "¿No tienes cuenta?",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                ChapuButton("Regístrate", variant = ChapuButtonVariant.Text, onClick = onRegisterClick)
+            }
+
         }
 
     }
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
