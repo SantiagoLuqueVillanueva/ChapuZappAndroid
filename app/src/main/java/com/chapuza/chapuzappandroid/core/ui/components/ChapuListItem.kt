@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Place
@@ -41,14 +40,18 @@ fun ChapuListItem(
     ) {
         Icon(painter = icon, contentDescription = null)
         Spacer(Modifier.width(16.dp))
-        Text(text = title, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+        Text(
+            text = title,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.weight(1f)
+        )
         if (trailingText != null) {
             Text(
                 trailingText,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            Spacer (Modifier.width(8.dp))
+            Spacer(Modifier.width(8.dp))
         }
         Icon(Icons.Filled.KeyboardArrowRight, contentDescription = null)
     }
