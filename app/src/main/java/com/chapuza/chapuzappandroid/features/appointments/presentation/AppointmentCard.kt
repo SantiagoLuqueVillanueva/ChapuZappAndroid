@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.chapuza.chapuzappandroid.core.ui.components.ChapuAvatar
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 
 @Composable
@@ -36,15 +37,7 @@ fun AppointmentCard(appointment: Appointment, onClick: () -> Unit, modifier: Mod
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ) {
         Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(
-                Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primaryContainer),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(appointment.professionalName.first().toString(), style = MaterialTheme.typography.titleMedium)
-            }
+            ChapuAvatar(name = appointment.professionalName)
             Spacer(Modifier.width(12.dp))
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(appointment.service, style = MaterialTheme.typography.titleMedium)
