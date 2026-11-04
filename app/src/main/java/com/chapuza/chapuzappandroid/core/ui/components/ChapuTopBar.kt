@@ -25,6 +25,7 @@ fun ChapuTopBar(
     title: String,
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
+    trailingIcon: (@Composable () -> Unit)? = null,
 ) {
     TopAppBar(
         title = { Text(title) },

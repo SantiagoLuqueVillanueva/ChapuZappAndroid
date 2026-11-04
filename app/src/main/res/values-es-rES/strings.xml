@@ -18,4 +18,17 @@
     <string name="category_cleaning">Limpieza</string>
     <string name="home_professional_subtitle">%1$s · a %2$.1f km</string>
     <string name="home_price_from">desde %1$d €/h</string>
+
+    <!-- Pantalla Detalle Profesional -->
+    <string name="professional_detail_title">Profesional</string>
+    <string name="professional_back_content_description">Volver</string>
+    <string name="professional_favorite_content_description">Guardar en favoritos</string>
+    <string name="professional_verified">Profesional verificado</string>
+    <string name="professional_tab_prices">Precios</string>
+    <string name="professional_tab_reviews">Reseñas</string>
+    <string name="professional_tab_schedule">Agenda</string>
+    <string name="professional_action_chat">Chatear</string>
+    <string name="professional_action_book">Reservar</string>
+    <string name="professional_see_all">Ver todas</string>
+    <string name="professional_about_me">Sobre mí</string>
 </resources>
