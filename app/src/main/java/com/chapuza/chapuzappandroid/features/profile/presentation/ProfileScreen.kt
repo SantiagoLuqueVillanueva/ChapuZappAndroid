@@ -32,9 +32,9 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.chapuza.chapuzappandroid.R
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuListItem
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuStatCard
-import com.chapuza.chapuzappandroid.R
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 
 @Composable
@@ -90,9 +90,9 @@ fun ProfileScreen() {
 
         }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            ChapuStatCard("12","Citas", Modifier.weight(1f))
-            ChapuStatCard("5","Favoritos", Modifier.weight(1f))
-            ChapuStatCard("8","Reseñas", Modifier.weight(1f))
+            ChapuStatCard("12", "Citas", Modifier.weight(1f))
+            ChapuStatCard("5", "Favoritos", Modifier.weight(1f))
+            ChapuStatCard("8", "Reseñas", Modifier.weight(1f))
         }
         Text("Tu cuenta", style = MaterialTheme.typography.titleMedium)
         Surface(

@@ -20,13 +20,24 @@ import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 fun ChapuStatCard(
     value: String,
     label: String,
-    modifier: Modifier= Modifier
-){
-    Surface(modifier=modifier, color= MaterialTheme.colorScheme.surfaceContainerLowest, shape = MaterialTheme.shapes.medium, border = BorderStroke(1.dp,
-        MaterialTheme.colorScheme.outlineVariant)) {
-        Column(Modifier.fillMaxWidth().padding(vertical = 12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(value,style= MaterialTheme.typography.titleLarge)
-            Text(label, style = MaterialTheme.typography.bodySmall,color= MaterialTheme.colorScheme.onSurfaceVariant)
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier,
+        color = MaterialTheme.colorScheme.surfaceContainerLowest,
+        shape = MaterialTheme.shapes.medium,
+        border = BorderStroke(
+            1.dp,
+            MaterialTheme.colorScheme.outlineVariant
+        )
+    ) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 12.dp), horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(value, style = MaterialTheme.typography.titleLarge)
+            Text(label, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
