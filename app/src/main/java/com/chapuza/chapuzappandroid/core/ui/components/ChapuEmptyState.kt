@@ -39,7 +39,10 @@ fun ChapuEmptyState(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
-            modifier = Modifier.size(104.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceContainerHighest),
+            modifier = Modifier
+                .size(104.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surfaceContainerHighest),
             contentAlignment = Alignment.Center
         ) {
             Icon(

@@ -22,14 +22,16 @@ import com.chapuza.chapuzappandroid.core.ui.components.ChapuTextField
 @Composable
 fun MessagesScreen() {
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
     ) {
         Text(
             text = "Mensajes",
             style = MaterialTheme.typography.headlineMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
-        Spacer(modifier=Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         ChapuTextField(
             value = "",
             onValueChange = {},
@@ -37,7 +39,9 @@ fun MessagesScreen() {
             leadingIcon = Icons.Outlined.Search
         )
         Box(
-            modifier = Modifier.fillMaxWidth().weight(1f),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
             contentAlignment = Alignment.Center
         ) {
             ChapuEmptyState(
