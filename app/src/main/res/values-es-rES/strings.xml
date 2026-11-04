@@ -4,4 +4,18 @@
     <string name="appointments_label">Citas</string>
     <string name="chat_label">Mensajes</string>
     <string name="profile_label">Perfil</string>
+    <string name="home_greeting">Hola, %1$s 👋</string>
+    <string name="home_search_hint">¿Qué necesitas arreglar?</string>
+    <string name="home_available_now">Disponibles ahora</string>
+    <string name="home_see_all">Ver todos</string>
+    <string name="category_all">Todos</string>
+    <string name="category_plumbing">Fontanería</string>
+    <string name="category_electricity">Electricidad</string>
+    <string name="category_locksmith">Cerrajería</string>
+    <string name="category_painting">Pintura</string>
+    <string name="category_carpentry">Carpintería</string>
+    <string name="category_appliances">Electrodomésticos</string>
+    <string name="category_cleaning">Limpieza</string>
+    <string name="home_professional_subtitle">%1$s · a %2$.1f km</string>
+    <string name="home_price_from">desde %1$d €/h</string>
 </resources>
