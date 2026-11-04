@@ -1,12 +1,12 @@
 package com.chapuza.chapuzappandroid.core.ui.theme
 
-import com.chapuza.chapuzappandroid.R
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.chapuza.chapuzappandroid.R
 
 // Set of Material typography styles to start with
 private val Jakarta = FontFamily(
