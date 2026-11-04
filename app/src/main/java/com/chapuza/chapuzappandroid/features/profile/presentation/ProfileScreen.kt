@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -57,9 +56,25 @@ fun ProfileScreen() {
                         ), contentAlignment = Alignment.Center
                 ) { Text(initials, style = MaterialTheme.typography.titleMedium) }
                 Spacer(Modifier.width(12.dp))
-                Column(Modifier.weight(1f)) {Text(name, style = MaterialTheme.typography.titleLarge)
-                    Text(email, style = MaterialTheme.typography.bodySmall, color= MaterialTheme.colorScheme.onSurfaceVariant)}
-                Surface(shape = CircleShape, color = MaterialTheme.colorScheme.surfaceContainerLowest) { IconButton(onClick = {}) { Icon(Icons.Outlined.Edit, contentDescription = "Editar perfil") } }
+                Column(Modifier.weight(1f)) {
+                    Text(name, style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        email,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Surface(
+                    shape = CircleShape,
+                    color = MaterialTheme.colorScheme.surfaceContainerLowest
+                ) {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            Icons.Outlined.Edit,
+                            contentDescription = "Editar perfil"
+                        )
+                    }
+                }
             }
         }
     }
