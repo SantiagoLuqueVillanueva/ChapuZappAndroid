@@ -56,7 +56,7 @@ fun AppointmentsScreen(
                     modifier = Modifier.fillMaxWidth().padding(top = 48.dp))
         }else{
             LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                item { Text(if (selectedTab == 0) "PRÓXIMA CITA" else "ANTERIORES", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                item { Text(if (selectedTab == 0) "PRÓXIMAS CITAS" else "ANTERIORES", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                 items(shown) { appointment -> AppointmentCard(appointment = appointment, onClick = { onAppointmentClick(appointment) }) }
             }
         }
