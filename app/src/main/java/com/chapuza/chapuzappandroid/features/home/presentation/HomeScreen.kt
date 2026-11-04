@@ -2,7 +2,15 @@ package com.chapuza.chapuzappandroid.features.home.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -12,37 +20,39 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.chapuza.chapuzappandroid.R
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButton
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButtonVariant
-import com.chapuza.chapuzappandroid.core.ui.components.ChapuCard
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuChip
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTextField
+import com.chapuza.chapuzappandroid.core.ui.components.ProfessionalCard
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(),
 ) {
-    val state by viewModel.uiState.collectAsState()
-    HomeContent(state, modifier)
-}
-
-@Composable
-private fun HomeContent(
-    state: HomeUiState,
-    modifier: Modifier = Modifier,
-) {
-    var selectedCategory by rememberSaveable { mutableStateOf(0) } // 0 = "Todos"
+    val userName = "Ana"
+    val location = "Málaga · Campanillas"
+    val categories = listOf(
+        "Todos",
+        "Fontanería",
+        "Electricidad",
+        "Cerrajería",
+        "Pintura",
+        "Carpintería",
+        "Electrodomésticos",
+        "Limpieza",
+    )
+    var selectedCategory by remember { mutableStateOf("Todos") }
 
     Column(
         modifier = modifier
@@ -52,92 +62,127 @@ private fun HomeContent(
             .padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        HomeHeader(state.userName, state.location, Modifier.padding(horizontal = 16.dp))
+        // Cabecera
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = "Hola, $userName",
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                Text(
+                    text = location,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .background(MaterialTheme.colorScheme.primaryContainer, CircleShape),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    Icons.Outlined.Person,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                )
+            }
+        }
 
-            ChapuTextField(
-                value = "",
-                onValueChange = {},
-                label = stringResource(R.string.home_search_hint),
-                leadingIcon = Icons.Outlined.Search,
-                modifier = Modifier.padding(horizontal = 16.dp),
-            )
+        // Buscador
+        ChapuTextField(
+            value = "",
+            onValueChange = {},
+            label = "Buscar fontanero, electricista...",
+            leadingIcon = Icons.Outlined.Search,
+            modifier = Modifier.padding(horizontal = 16.dp),
+        )
 
-        // Dos filas de chips que se desplazan juntas
+        // Chips de categorías en 2 filas con scroll horizontal
         Column(
             modifier = Modifier
                 .horizontalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            state.categories.chunked((state.categories.size + 1) / 2).forEach { rowItems ->
+            categories.chunked((categories.size + 1) / 2).forEach { rowItems ->
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     rowItems.forEach { category ->
                         ChapuChip(
-                            text = stringResource(category.labelRes),
-                            selected = selectedCategory == category.id,
-                            onClick = { selectedCategory = category.id },
+                            text = category,
+                            selected = selectedCategory == category,
+                            onClick = { selectedCategory = category },
                         )
                     }
                 }
             }
         }
 
+        // Título sección
         Row(
-            modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                stringResource(R.string.home_available_now),
+                text = "Disponibles ahora",
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.weight(1f),
             )
             ChapuButton(
-                text = stringResource(R.string.home_see_all),
+                text = "Ver todos",
                 onClick = {},
                 variant = ChapuButtonVariant.Text,
             )
         }
 
+        // Tarjetas de profesionales
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            state.professionals.forEach { pro ->
-                ChapuCard(
-                    name = pro.name,
-                    subtitle = stringResource(
-                        R.string.home_professional_subtitle,
-                        stringResource(pro.categoryRes),
-                        pro.distanceKm,
-                    ),
-                    rating = pro.rating,
-                    price = stringResource(R.string.home_price_from, pro.priceFromPerHour),
-                )
-            }
+            ProfessionalCard(
+                name = "Javier M.",
+                subtitle = "Fontanería · a 0,4 km",
+                rating = 4.9f,
+                price = "desde 25 €/h",
+                onClick = {},
+            )
+            ProfessionalCard(
+                name = "Laura R.",
+                subtitle = "Electricidad · a 0,4 km",
+                rating = 4.8f,
+                price = "desde 30 €/h",
+                onClick = {},
+            )
+            ProfessionalCard(
+                name = "Marta S.",
+                subtitle = "Pintura · a 0,9 km",
+                rating = 4.8f,
+                price = "desde 20 €/h",
+                onClick = {},
+            )
+            ProfessionalCard(
+                name = "Pablo G.",
+                subtitle = "Carpintería · a 1,2 km",
+                rating = 4.7f,
+                price = "desde 28 €/h",
+                onClick = {},
+            )
         }
     }
 }
 
-@Composable
-private fun HomeHeader(userName: String, location: String, modifier: Modifier = Modifier) {
-    Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(stringResource(R.string.home_greeting, userName), style = MaterialTheme.typography.titleLarge)
-            Text(location, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        }
-        Box(
-            modifier = Modifier.size(40.dp).background(MaterialTheme.colorScheme.primaryContainer, CircleShape),
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(Icons.Outlined.Person, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimaryContainer)
-        }
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true, locale = "es")
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun HomeScreenPreview() {
     ChapuZappAndroidTheme {
-        HomeContent(sampleHomeState())
+        HomeScreen()
     }
 }
