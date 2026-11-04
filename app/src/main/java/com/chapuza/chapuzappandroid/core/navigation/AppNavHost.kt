@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.chapuza.chapuzappandroid.features.appointments.presentation.AppointmentsScreen
+import com.chapuza.chapuzappandroid.features.appointments.presentation.sampleAppointments
 import com.chapuza.chapuzappandroid.features.home.presentation.HomeScreen
 import com.chapuza.chapuzappandroid.features.messages.presentation.MessagesScreen
 import com.chapuza.chapuzappandroid.features.profile.presentation.ProfileScreen
@@ -21,7 +22,11 @@ fun AppNavHost(
         modifier = modifier,
     ) {
         composable<Routes.HomeRoute> { HomeScreen() }
-        composable<Routes.AppointmentsRoute> { AppointmentsScreen() }
+        composable<Routes.AppointmentsRoute> { AppointmentsScreen(
+            appointments = sampleAppointments,
+            onAppointmentClick = {},
+            onSearchClick = {},
+        ) }
         composable<Routes.MessagesRoute> { MessagesScreen() }
         composable<Routes.ProfileRoute> { ProfileScreen() }
     }
