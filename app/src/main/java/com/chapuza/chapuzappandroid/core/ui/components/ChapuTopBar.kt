@@ -40,7 +40,12 @@ fun ChapuTopBar(
                 }
             }
         },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background)
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+        actions = {
+            if (trailingIcon != null) {
+                trailingIcon()
+            }
+        }
     )
 }
 

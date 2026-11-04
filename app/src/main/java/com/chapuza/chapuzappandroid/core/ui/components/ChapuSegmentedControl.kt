@@ -28,12 +28,14 @@ fun ChapuSegmentedControl(
     options: List<String>,
     selectedIndex: Int,
     onSelect: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    selectedContainerColor: Color = MaterialTheme.colorScheme.primary,
+    selectedContentColor: Color = MaterialTheme.colorScheme.onPrimary,
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = CircleShape,
-        color = MaterialTheme.colorScheme.surfaceContainerLow
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
     ) {
         Row(modifier = Modifier.padding(4.dp)) {
             options.forEachIndexed { index, option ->
@@ -42,13 +44,15 @@ fun ChapuSegmentedControl(
                     Modifier
                         .weight(1f)
                         .clip(CircleShape)
-                        .background(if (selected) MaterialTheme.colorScheme.primary else Color.Transparent)
+                        .background(if (selected) selectedContainerColor else Color.Transparent)
                         .clickable { onSelect(index) }
-                        .padding(vertical = 10.dp), contentAlignment = Alignment.Center) {
+                        .padding(vertical = 10.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
                     Text(
                         option,
                         style = MaterialTheme.typography.labelLarge,
-                        color = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                        color = if (selected) selectedContentColor else MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
             }
