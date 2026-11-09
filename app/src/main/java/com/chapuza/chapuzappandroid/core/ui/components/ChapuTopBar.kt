@@ -25,6 +25,7 @@ fun ChapuTopBar(
     title: String,
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
+    trailingIcon: (@Composable () -> Unit)? = null,
 ) {
     TopAppBar(
         title = { Text(title) },
@@ -39,7 +40,12 @@ fun ChapuTopBar(
                 }
             }
         },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background)
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+        actions = {
+            if (trailingIcon != null) {
+                trailingIcon()
+            }
+        }
     )
 }
 

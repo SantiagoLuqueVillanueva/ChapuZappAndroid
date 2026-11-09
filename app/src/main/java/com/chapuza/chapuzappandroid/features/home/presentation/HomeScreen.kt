@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButton
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButtonVariant
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuChip
+import com.chapuza.chapuzappandroid.core.ui.components.ChapuIcon
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTextField
 import com.chapuza.chapuzappandroid.core.ui.components.ProfessionalCard
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
@@ -80,18 +81,7 @@ fun HomeScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.primaryContainer, CircleShape),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(
-                    Icons.Outlined.Person,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                )
-            }
+            ChapuIcon(onClick = {}, modifier = modifier)
         }
 
         // Buscador

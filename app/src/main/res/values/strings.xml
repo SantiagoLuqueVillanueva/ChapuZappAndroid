@@ -18,4 +18,17 @@
     <string name="category_cleaning">Cleaning</string>
     <string name="home_professional_subtitle">%1$s · %2$.1f km away</string>
     <string name="home_price_from">from €%1$d/h</string>
+
+    <!-- Professional Detail Screen -->
+    <string name="professional_detail_title">Professional</string>
+    <string name="professional_back_content_description">Go back</string>
+    <string name="professional_favorite_content_description">Save to favorites</string>
+    <string name="professional_verified">Verified professional</string>
+    <string name="professional_tab_prices">Prices</string>
+    <string name="professional_tab_reviews">Reviews</string>
+    <string name="professional_tab_schedule">Schedule</string>
+    <string name="professional_action_chat">Chat</string>
+    <string name="professional_action_book">Book</string>
+    <string name="professional_see_all">See all</string>
+    <string name="professional_about_me">About me</string>
 </resources>
