@@ -13,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.ChatBubbleOutline
 import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -61,13 +62,27 @@ fun BookingConfirmationSummary(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                ChapuAvatar(name = professionalName)
+                Spacer(Modifier.width(12.dp))
+                Column {
+                    Text(professionalName, style = MaterialTheme.typography.titleSmall)
+                    Text(
+                        "$service · $price €", // TODO: pasar a strings.xml
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             }
-            // 2. Divisor
-            // 3. Tres SummaryRow
+
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+
+            SummaryRow(Icons.Outlined.CalendarMonth, dateTime)
+            SummaryRow(Icons.Outlined.LocationOn, address)
+            SummaryRow(
+                Icons.Outlined.ChatBubbleOutline,
+                "Chat abierto con ${professionalName.substringBefore(" ")}" // TODO: pasar a strings.xml
+            )
         }
     }
 }
@@ -84,5 +99,20 @@ private fun SummaryRowPreview() {
             SummaryRow(Icons.Outlined.LocationOn, "Calle Alan Turing, 12 · 2.º B")
             SummaryRow(Icons.Outlined.ChatBubbleOutline, "Chat abierto con Javier")
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BookingConfirmationSummaryPreview() {
+    ChapuZappAndroidTheme {
+        BookingConfirmationSummary(
+            professionalName = "Javier Moreno",
+            service = "Cambio de grifo",
+            price = 45,
+            dateTime = "Jue, 15 oct · 17:00",
+            address = "Calle Alan Turing, 12 · 2.º B",
+            modifier = Modifier.padding(16.dp),
+        )
     }
 }
