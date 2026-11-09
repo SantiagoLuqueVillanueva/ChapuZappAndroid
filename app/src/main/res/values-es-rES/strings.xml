@@ -31,4 +31,10 @@
     <string name="professional_action_book">Reservar</string>
     <string name="professional_see_all">Ver todas</string>
     <string name="professional_about_me">Sobre mí</string>
+
+    <!-- Pantalla Búsqueda -->
+    <string name="search_hint">Buscar fontanero, electricista...</string>
+    <string name="search_recent_title">BÚSQUEDAS RECIENTES</string>
+    <string name="search_clear">Borrar</string>
+    <string name="search_popular_title">POPULARES CERCA DE TI</string>
 </resources>

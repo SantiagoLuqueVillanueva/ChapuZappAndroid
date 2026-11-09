@@ -31,4 +31,10 @@
     <string name="professional_action_book">Book</string>
     <string name="professional_see_all">See all</string>
     <string name="professional_about_me">About me</string>
+
+    <!-- Search Screen -->
+    <string name="search_hint">Search plumber, electrician...</string>
+    <string name="search_recent_title">RECENT SEARCHES</string>
+    <string name="search_clear">Clear</string>
+    <string name="search_popular_title">POPULAR NEAR YOU</string>
 </resources>
