@@ -1,4 +1,4 @@
-package com.chapuza.chapuzappandroid.features.booking.presentation
+ package com.chapuza.chapuzappandroid.features.booking.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
