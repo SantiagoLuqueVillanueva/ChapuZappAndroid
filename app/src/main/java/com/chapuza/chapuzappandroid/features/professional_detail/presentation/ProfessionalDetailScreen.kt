@@ -48,24 +48,76 @@ import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 
 @Composable
 fun ProfessionalDetailScreen(
+    professionalId: String = "1",
+    onBack: () -> Unit = {},
+    onBookClick: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     var isFavorite by remember { mutableStateOf(false) }
 
-    val name = "Javier Moreno"
-    val jobAndExperience = "Fontanero · 8 años de experiencia"
-    val rating = "4,9"
-    val reviewCount = "(128 reseñas)"
-    val location = "Campanillas, Málaga · a 0,4 km de ti"
+    // Datos según el id recibido
+    val professionalName: String
+    val professionalJob: String
+    val professionalRating: String
+    val professionalReviews: String
+    val professionalLocation: String
+    val professionalServices: List<Triple<String, String, String>>
+
+    when (professionalId) {
+        "2" -> {
+            professionalName = "Laura R."
+            professionalJob = "Electricidad · 6 años de experiencia"
+            professionalRating = "4,8"
+            professionalReviews = "(94 reseñas)"
+            professionalLocation = "Campanillas, Málaga · a 0,4 km de ti"
+            professionalServices = listOf(
+                Triple("Instalación de enchufe", "Material incluido · 30 min", "30 €"),
+                Triple("Revisión de cuadro eléctrico", "Diagnóstico y boletín", "70 €"),
+                Triple("Instalación de lámpara", "Montaje y conexión", "40 €"),
+            )
+        }
+        "3" -> {
+            professionalName = "Marta S."
+            professionalJob = "Pintura · 5 años de experiencia"
+            professionalRating = "4,8"
+            professionalReviews = "(76 reseñas)"
+            professionalLocation = "Teatinos, Málaga · a 0,9 km de ti"
+            professionalServices = listOf(
+                Triple("Pintar habitación", "Hasta 12 m² con pintura", "120 €"),
+                Triple("Reparar humedades", "Tratamiento y sellado", "80 €"),
+                Triple("Alisar pared", "Por metro cuadrado", "20 €"),
+            )
+        }
+        "4" -> {
+            professionalName = "Pablo G."
+            professionalJob = "Carpintería · 10 años de experiencia"
+            professionalRating = "4,7"
+            professionalReviews = "(112 reseñas)"
+            professionalLocation = "Málaga Centro · a 1,2 km de ti"
+            professionalServices = listOf(
+                Triple("Montaje de mueble", "Tipo kit / estantería", "45 €"),
+                Triple("Ajuste de puerta", "Cepillado y bisagras", "35 €"),
+                Triple("Instalación de cerradura", "Cerradura de seguridad", "65 €"),
+            )
+        }
+        else -> {
+            professionalName = "Javier Moreno"
+            professionalJob = "Fontanero · 8 años de experiencia"
+            professionalRating = "4,9"
+            professionalReviews = "(128 reseñas)"
+            professionalLocation = "Campanillas, Málaga · a 0,4 km de ti"
+            professionalServices = listOf(
+                Triple("Cambio de grifo", "Instalación · 45–60 min", "45 €"),
+                Triple("Reparación de fuga", "Diagnóstico incluido", "55 €"),
+                Triple("Desatasco de lavabo", "Limpieza y revisión", "60 €"),
+            )
+        }
+    }
+
     val tabs = listOf(
         stringResource(R.string.professional_tab_prices),
         stringResource(R.string.professional_tab_reviews),
         stringResource(R.string.professional_tab_schedule),
-    )
-    val services = listOf(
-        Triple("Cambio de grifo", "Instalación · 45–60 min", "45 €"),
-        Triple("Reparación de fuga", "Diagnóstico incluido", "55 €"),
-        Triple("Desatasco de lavabo", "Limpieza y revisión", "60 €"),
     )
 
     Column(
@@ -73,10 +125,10 @@ fun ProfessionalDetailScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
     ) {
-        // Barra superior
+        // Barra superior con botón volver y favorito
         ChapuTopBar(
             title = stringResource(R.string.professional_detail_title),
-            onBack = {},
+            onBack = onBack,
             trailingIcon = {
                 IconButton(onClick = { isFavorite = !isFavorite }) {
                     Icon(
@@ -118,12 +170,12 @@ fun ProfessionalDetailScreen(
 
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(
-                        text = name,
+                        text = professionalName,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
-                        text = jobAndExperience,
+                        text = professionalJob,
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -138,7 +190,7 @@ fun ProfessionalDetailScreen(
                             tint = MaterialTheme.colorScheme.onSurface,
                         )
                         Text(
-                            text = "$rating $reviewCount",
+                            text = "$professionalRating $professionalReviews",
                             style = MaterialTheme.typography.bodySmall,
                             fontWeight = FontWeight.Medium,
                         )
@@ -191,7 +243,7 @@ fun ProfessionalDetailScreen(
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Text(
-                        text = location,
+                        text = professionalLocation,
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -215,7 +267,7 @@ fun ProfessionalDetailScreen(
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
-                    services.forEachIndexed { index, (title, description, price) ->
+                    professionalServices.forEachIndexed { index, (title, description, price) ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -246,7 +298,7 @@ fun ProfessionalDetailScreen(
                                 fontSize = 18.sp,
                             )
                         }
-                        if (index < services.lastIndex) {
+                        if (index < professionalServices.lastIndex) {
                             HorizontalDivider(
                                 color = MaterialTheme.colorScheme.outlineVariant,
                                 thickness = 1.dp,
@@ -284,7 +336,7 @@ fun ProfessionalDetailScreen(
 
             ChapuButton(
                 text = stringResource(R.string.professional_action_book),
-                onClick = {},
+                onClick = { onBookClick(professionalId) },
                 modifier = Modifier.weight(1f),
             )
         }

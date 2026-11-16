@@ -45,6 +45,7 @@ import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 @Composable
 fun SearchScreen(
     onBackClick: () -> Unit = {},
+    onProfessionalClick: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     var searchQuery by remember { mutableStateOf("Cambiar grifo") }
@@ -128,16 +129,16 @@ fun SearchScreen(
                 ),
             ) {
                 val recentSearches = listOf(
-                    "Cambiar grifo",
-                    "Electricista urgente",
-                    "Pintar salón",
+                    "Cambiar grifo" to "1",
+                    "Electricista urgente" to "2",
+                    "Pintar salón" to "3",
                 )
 
-                recentSearches.forEachIndexed { index, item ->
+                recentSearches.forEachIndexed { index, (item, professionalId) ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable { searchQuery = item }
+                            .clickable { onProfessionalClick(professionalId) }
                             .padding(horizontal = 16.dp, vertical = 14.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(12.dp),

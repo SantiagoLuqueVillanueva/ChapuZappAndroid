@@ -35,6 +35,7 @@ fun ChapuTextField(
     errorMessage: String? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    enabled: Boolean = true,
 ) {
     OutlinedTextField(
         value = value,
@@ -43,6 +44,7 @@ fun ChapuTextField(
         label = { Text(label) },
         singleLine = true,
         shape = CircleShape,
+        enabled = enabled,
         isError = errorMessage != null,
         supportingText = errorMessage?.let { { Text(it) } },
         // Icono decorativo al inicio; si es null no se pinta
@@ -55,6 +57,11 @@ fun ChapuTextField(
             unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
             unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
             focusedBorderColor = MaterialTheme.colorScheme.outline,
+            disabledContainerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+            disabledBorderColor = MaterialTheme.colorScheme.outlineVariant,
+            disabledTextColor = MaterialTheme.colorScheme.onSurface,
+            disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
         ),
     )
 }
@@ -73,7 +80,7 @@ private fun ChapuTextFieldPreview() {
                 onValueChange = {},
                 label = "Correo",
                 leadingIcon = Icons.Outlined.Email,
-                errorMessage = "Correo no válido"
+                errorMessage = "Correo no válido",
             )
             ChapuTextField(
                 value = "secreto",

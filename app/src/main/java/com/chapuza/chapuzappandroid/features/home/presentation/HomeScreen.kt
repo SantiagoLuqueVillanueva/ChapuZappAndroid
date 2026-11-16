@@ -1,6 +1,7 @@
 package com.chapuza.chapuzappandroid.features.home.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,15 +10,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +37,8 @@ import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    onProfessionalClick: (String) -> Unit = {},
+    onSearchClick: () -> Unit = {},
 ) {
     val userName = "Ana"
     val location = "Málaga · Campanillas"
@@ -85,13 +84,20 @@ fun HomeScreen(
         }
 
         // Buscador
-        ChapuTextField(
-            value = "",
-            onValueChange = {},
-            label = "Buscar fontanero, electricista...",
-            leadingIcon = Icons.Outlined.Search,
-            modifier = Modifier.padding(horizontal = 16.dp),
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .clickable(onClick = onSearchClick),
+        ) {
+            ChapuTextField(
+                value = "",
+                onValueChange = {},
+                label = "Buscar fontanero, electricista...",
+                leadingIcon = Icons.Outlined.Search,
+                enabled = false,
+            )
+        }
 
         // Chips de categorías en 2 filas con scroll horizontal
         Column(
@@ -142,28 +148,28 @@ fun HomeScreen(
                 subtitle = "Fontanería · a 0,4 km",
                 rating = 4.9f,
                 price = "desde 25 €/h",
-                onClick = {},
+                onClick = { onProfessionalClick("1") },
             )
             ProfessionalCard(
                 name = "Laura R.",
                 subtitle = "Electricidad · a 0,4 km",
                 rating = 4.8f,
                 price = "desde 30 €/h",
-                onClick = {},
+                onClick = { onProfessionalClick("2") },
             )
             ProfessionalCard(
                 name = "Marta S.",
                 subtitle = "Pintura · a 0,9 km",
                 rating = 4.8f,
                 price = "desde 20 €/h",
-                onClick = {},
+                onClick = { onProfessionalClick("3") },
             )
             ProfessionalCard(
                 name = "Pablo G.",
                 subtitle = "Carpintería · a 1,2 km",
                 rating = 4.7f,
                 price = "desde 28 €/h",
-                onClick = {},
+                onClick = { onProfessionalClick("4") },
             )
         }
     }
