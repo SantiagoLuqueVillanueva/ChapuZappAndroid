@@ -33,6 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chapuza.chapuzappandroid.R
+import com.chapuza.chapuzappandroid.core.ui.components.ChapuAvatar
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuListItem
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuStatCard
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
@@ -58,14 +59,11 @@ fun ProfileScreen() {
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Box(
-                    Modifier
-                        .size(56.dp)
-                        .background(
-                            MaterialTheme.colorScheme.surfaceContainerLowest,
-                            CircleShape
-                        ), contentAlignment = Alignment.Center
-                ) { Text(initials, style = MaterialTheme.typography.titleMedium) }
+                ChapuAvatar(
+                    name = "Adrián Gutiérrez",
+                    size = 56.dp,
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                )
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
                     Text(name, style = MaterialTheme.typography.titleLarge)
