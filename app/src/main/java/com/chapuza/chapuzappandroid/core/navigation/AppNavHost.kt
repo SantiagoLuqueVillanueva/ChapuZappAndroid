@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.chapuza.chapuzappandroid.features.appointments.presentation.AppointmentsScreen
 import com.chapuza.chapuzappandroid.features.appointments.presentation.sampleAppointments
+import com.chapuza.chapuzappandroid.features.auth.presentation.LoginScreen
 import com.chapuza.chapuzappandroid.features.home.presentation.HomeScreen
 import com.chapuza.chapuzappandroid.features.messages.presentation.MessagesScreen
 import com.chapuza.chapuzappandroid.features.profile.presentation.ProfileScreen
@@ -18,7 +19,7 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Routes.HomeRoute,
+        startDestination = Routes.LoginRoute,
         modifier = modifier,
     ) {
         composable<Routes.HomeRoute> { HomeScreen() }
@@ -29,5 +30,15 @@ fun AppNavHost(
         ) }
         composable<Routes.MessagesRoute> { MessagesScreen() }
         composable<Routes.ProfileRoute> { ProfileScreen() }
+        composable<Routes.LoginRoute> {
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate(Routes.HomeRoute) {
+                        popUpTo(Routes.LoginRoute) { inclusive = true }
+                    }
+                },
+                onRegisterClick = {},
+            )
+        }
     }
 }
