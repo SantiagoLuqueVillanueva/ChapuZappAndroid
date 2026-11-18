@@ -13,7 +13,7 @@ class AuthRepository @Inject constructor(private val api: AuthApi, private val t
         return try {
             val response = api.login(LoginRequest(email, password))
             tokenStore.saveToken(response.token)
-            Result.success(response.usuario)
+            Result.success(response.usuario.usuario)
         } catch (e: Exception) {
             Result.failure(e)
         }
