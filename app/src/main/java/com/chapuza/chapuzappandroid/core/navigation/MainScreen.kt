@@ -15,7 +15,7 @@ fun MainScreen() {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val onLogin = backStackEntry?.destination?.hasRoute(Routes.LoginRoute::class) == true
     Scaffold(
-        bottomBar = { BottomBar(navController) }
+        bottomBar = { if (!onLogin) BottomBar(navController) }
     ) { innerPadding ->
         AppNavHost(
             navController = navController,
