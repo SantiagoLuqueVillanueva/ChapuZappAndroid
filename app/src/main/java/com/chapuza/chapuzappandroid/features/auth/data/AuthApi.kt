@@ -1,7 +1,7 @@
-package com.chapuza.chapuzappandroid.data.remote
+package com.chapuza.chapuzappandroid.features.auth.data
 
-import com.chapuza.chapuzappandroid.data.remote.dto.LoginRequest
-import com.chapuza.chapuzappandroid.data.remote.dto.LoginResponse
+import com.chapuza.chapuzappandroid.features.auth.data.dto.LoginRequest
+import com.chapuza.chapuzappandroid.features.auth.data.dto.LoginResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 

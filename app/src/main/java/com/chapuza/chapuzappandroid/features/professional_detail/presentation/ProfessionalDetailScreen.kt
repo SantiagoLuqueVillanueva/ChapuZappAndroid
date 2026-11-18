@@ -44,6 +44,7 @@ import com.chapuza.chapuzappandroid.R
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButton
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuSegmentedControl
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTopBar
+import com.chapuza.chapuzappandroid.core.ui.icon.chat_bubble
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 
 @Composable

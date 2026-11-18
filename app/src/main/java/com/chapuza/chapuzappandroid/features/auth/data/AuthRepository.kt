@@ -1,9 +1,9 @@
-package com.chapuza.chapuzappandroid.data.repository
+package com.chapuza.chapuzappandroid.features.auth.data
 
-import com.chapuza.chapuzappandroid.data.local.TokenStore
-import com.chapuza.chapuzappandroid.data.remote.AuthApi
-import com.chapuza.chapuzappandroid.data.remote.dto.LoginRequest
-import com.chapuza.chapuzappandroid.data.remote.dto.UsuarioDto
+import com.chapuza.chapuzappandroid.core.data.local.TokenStore
+import com.chapuza.chapuzappandroid.features.auth.data.AuthApi
+import com.chapuza.chapuzappandroid.features.auth.data.dto.LoginRequest
+import com.chapuza.chapuzappandroid.features.auth.data.dto.UsuarioDto
 import javax.inject.Inject
 import javax.inject.Singleton
 

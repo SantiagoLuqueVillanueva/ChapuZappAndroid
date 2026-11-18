@@ -18,6 +18,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,11 +35,14 @@ import com.chapuza.chapuzappandroid.core.ui.components.ChapuButton
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButtonVariant
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTextField
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun LoginScreen(
-    onLoginClick: () -> Unit,
-    onRegisterClick: () -> Unit,
+    onLoginSuccess: () -> Unit
+    onRegisterClick: () -> Unit
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -47,7 +51,8 @@ fun LoginScreen(
     val emailError: String? =
         if (submitted && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) "Introduce un correo válido" else null
     val passwordError: String? = if (submitted && password.isBlank()) "Introduce tu contraseña" else null
-
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(uiState.success) { if (uiState.success) onLoginSuccess() }
     Column(
         Modifier
             .fillMaxSize()
@@ -104,6 +109,7 @@ fun LoginScreen(
                     }
                 },
             )
+            uiState.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
             ChapuButton(
                 "He olvidado mi contraseña",
                 variant = ChapuButtonVariant.Text,
@@ -117,7 +123,7 @@ fun LoginScreen(
                     val emailOk = Patterns.EMAIL_ADDRESS.matcher(email).matches()
                     val passwordOk = password.isNotBlank()
                     if (emailOk && passwordOk) {
-                        onLoginClick()
+                        viewModel.login(email, password)
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -140,10 +146,3 @@ fun LoginScreen(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun LoginScreenPreview() {
-    ChapuZappAndroidTheme {
-        LoginScreen(onLoginClick = {}, onRegisterClick = {})
-    }
-}

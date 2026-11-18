@@ -1,4 +1,4 @@
-package com.chapuza.chapuzappandroid.data.remote.dto
+package com.chapuza.chapuzappandroid.features.auth.data.dto
 
 import kotlinx.serialization.Serializable
 

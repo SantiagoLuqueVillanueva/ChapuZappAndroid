@@ -1,7 +1,7 @@
-package com.chapuza.chapuzappandroid.di
+package com.chapuza.chapuzappandroid.core.di
 
 import com.chapuza.chapuzappandroid.BuildConfig
-import com.chapuza.chapuzappandroid.data.remote.AuthApi
+import com.chapuza.chapuzappandroid.features.auth.data.AuthApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

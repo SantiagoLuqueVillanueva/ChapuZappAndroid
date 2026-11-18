@@ -82,4 +82,6 @@ dependencies {
     implementation(libs.okhttp.logging)
 
     implementation(libs.androidx.datastore.preferences)
+
+    implementation(libs.androidx.hilt.navigation.compose)
 }
