@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.chapuza.chapuzappandroid.features.appointments.presentation.AppointmentsScreen
 import com.chapuza.chapuzappandroid.features.appointments.presentation.sampleAppointments
 import com.chapuza.chapuzappandroid.features.auth.presentation.LoginScreen
+import com.chapuza.chapuzappandroid.features.auth.presentation.RegisterScreen
 import com.chapuza.chapuzappandroid.features.home.presentation.HomeScreen
 import com.chapuza.chapuzappandroid.features.messages.presentation.MessagesScreen
 import com.chapuza.chapuzappandroid.features.profile.presentation.ProfileScreen
@@ -38,6 +39,26 @@ fun AppNavHost(
                     }
                 },
                 onRegisterClick = {},
+            )
+        }
+        composable<Routes.LoginRoute> {
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate(Routes.HomeRoute) {
+                        popUpTo(Routes.LoginRoute) { inclusive = true }
+                    }
+                },
+                onRegisterClick = { navController.navigate(Routes.RegisterRoute) },
+            )
+        }
+        composable<Routes.RegisterRoute> {
+            RegisterScreen(
+                onRegisterSuccess = {
+                    navController.navigate(Routes.HomeRoute) {
+                        popUpTo(Routes.LoginRoute) { inclusive = true }
+                    }
+                },
+                onLoginClick = { navController.popBackStack() },
             )
         }
     }

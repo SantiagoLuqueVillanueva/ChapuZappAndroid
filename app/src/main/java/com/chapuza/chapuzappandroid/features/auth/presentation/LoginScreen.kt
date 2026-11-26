@@ -1,6 +1,5 @@
 package com.chapuza.chapuzappandroid.features.auth.presentation
 
-import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -21,128 +21,108 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.chapuza.chapuzappandroid.R
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButton
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButtonVariant
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTextField
-import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
     onRegisterClick: () -> Unit,
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
-    var submitted by remember { mutableStateOf(false) }
-    val emailError: String? =
-        if (submitted && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) "Introduce un correo válido" else null
-    val passwordError: String? = if (submitted && password.isBlank()) "Introduce tu contraseña" else null
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    LaunchedEffect(uiState.success) { if (uiState.success) onLoginSuccess() }
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(uiState.success) {
+        if (uiState.success) onLoginSuccess()
+    }
+
     Column(
-        Modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .padding(horizontal = 16.dp, vertical = 24.dp),
     ) {
-        Column(
+        Image(
+            painter = painterResource(R.drawable.logo_login_horizontal),
+            contentDescription = "ChapuZapp",
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 24.dp),
-        ) {
-            Image(
-                painter = painterResource(R.drawable.logo_login_horizontal),
-                contentDescription = "ChapuZapp",
-                modifier = Modifier
-                    .height(44.dp)
-                    .align(Alignment.CenterHorizontally),
-            )
-            Spacer(
-                Modifier.height(24.dp)
-            )
-            Text("Inicia sesión", style = MaterialTheme.typography.headlineSmall)
-            Spacer(Modifier.height(4.dp))
-            Text(
-                "Accede para reservar profesionales cerca de ti",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Spacer(Modifier.height(24.dp))
-            ChapuTextField(
-                value = email,
-                onValueChange = { email = it },
-                label = "Correo electrónico",
-                leadingIcon = Icons.Outlined.Email,
-                errorMessage = emailError
-            )
-            Spacer(
-                Modifier.height(12.dp)
-            )
-            ChapuTextField(
-                value = password,
-                onValueChange = { password = it },
-                label = "Contraseña",
-                leadingIcon = Icons.Outlined.Lock,
-                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                errorMessage = passwordError,
-                trailingIcon = {
-                    IconButton(onClick = {
-                        passwordVisible = !passwordVisible
-                    }) {
-                        Icon(
-                            painter = painterResource(if (passwordVisible) R.drawable.ic_visibility_off else R.drawable.ic_visibility),
-                            contentDescription = "Mostrar contraseña"
-                        )
-                    }
-                },
-            )
-            uiState.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-            ChapuButton(
-                "He olvidado mi contraseña",
-                variant = ChapuButtonVariant.Text,
-                modifier = Modifier.align(Alignment.End),
-                onClick = {})
+                .height(44.dp)
+                .align(Alignment.CenterHorizontally),
+        )
+        Spacer(Modifier.height(24.dp))
+        Text("Inicia sesión", style = MaterialTheme.typography.headlineSmall)
+        Spacer(Modifier.height(4.dp))
+        Text(
+            "Accede para reservar profesionales cerca de ti",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(Modifier.height(24.dp))
+        ChapuTextField(
+            value = uiState.email,
+            onValueChange = viewModel::onEmailChange,
+            label = "Correo electrónico",
+            leadingIcon = Icons.Outlined.Email,
+            errorMessage = uiState.emailError,
+        )
+        Spacer(Modifier.height(12.dp))
+        ChapuTextField(
+            value = uiState.password,
+            onValueChange = viewModel::onPasswordChange,
+            label = "Contraseña",
+            leadingIcon = Icons.Outlined.Lock,
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            errorMessage = uiState.passwordError,
+            trailingIcon = {
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(
+                        painter = painterResource(if (passwordVisible) R.drawable.ic_visibility_off else R.drawable.ic_visibility),
+                        contentDescription = "Mostrar contraseña",
+                    )
+                }
+            },
+        )
+        uiState.error?.let {
             Spacer(Modifier.height(8.dp))
-            ChapuButton(
-                text = "Entrar",
-                onClick = {
-                    submitted = true
-                    val emailOk = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-                    val passwordOk = password.isNotBlank()
-                    if (emailOk && passwordOk) {
-                        viewModel.login(email, password)
-                    }
-                },
-                modifier = Modifier.fillMaxWidth(),
-            )
-            Spacer(Modifier.weight(1f))
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.CenterVertically
-            )
-            {
-                Text(
-                    "¿No tienes cuenta?",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                ChapuButton("Regístrate", variant = ChapuButtonVariant.Text, onClick = onRegisterClick)
-            }
-
+            Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodyMedium)
         }
-
+        ChapuButton(
+            text = "He olvidado mi contraseña",
+            variant = ChapuButtonVariant.Text,
+            modifier = Modifier.align(Alignment.End),
+            onClick = {},
+        )
+        Spacer(Modifier.height(8.dp))
+        if (uiState.loading) {
+            CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
+            Spacer(Modifier.height(8.dp))
+        }
+        ChapuButton(
+            text = if (uiState.loading) "Entrando…" else "Entrar",
+            onClick = viewModel::login,
+            enabled = !uiState.loading,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Spacer(Modifier.weight(1f))
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text("¿No tienes cuenta?", color = MaterialTheme.colorScheme.onSurfaceVariant)
+            ChapuButton("Regístrate", variant = ChapuButtonVariant.Text, onClick = onRegisterClick)
+        }
     }
 }
-

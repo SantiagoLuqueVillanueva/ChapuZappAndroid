@@ -13,9 +13,11 @@ import androidx.navigation.compose.rememberNavController
 fun MainScreen() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
-    val onLogin = backStackEntry?.destination?.hasRoute(Routes.LoginRoute::class) == true
+    val destination = backStackEntry?.destination
+    val onAuth = destination?.hasRoute(Routes.LoginRoute::class) == true ||
+            destination?.hasRoute(Routes.RegisterRoute::class) == true
     Scaffold(
-        bottomBar = { if (!onLogin) BottomBar(navController) }
+        bottomBar = { if (!onAuth) BottomBar(navController) }
     ) { innerPadding ->
         AppNavHost(
             navController = navController,
