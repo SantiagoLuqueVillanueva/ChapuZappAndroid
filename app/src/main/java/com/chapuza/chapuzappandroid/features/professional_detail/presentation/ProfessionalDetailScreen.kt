@@ -45,6 +45,11 @@ import com.chapuza.chapuzappandroid.core.ui.components.ChapuButton
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuSegmentedControl
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTopBar
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
+import android.content.ActivityNotFoundException
+import android.widget.Toast
 
 @Composable
 fun ProfessionalDetailScreen(
@@ -57,6 +62,8 @@ fun ProfessionalDetailScreen(
     val rating = "4,9"
     val reviewCount = "(128 reseñas)"
     val location = "Campanillas, Málaga · a 0,4 km de ti"
+    val phone = "952123456" // TODO: sustituir por el teléfono real cuando venga del backend
+    val context = LocalContext.current
     val tabs = listOf(
         stringResource(R.string.professional_tab_prices),
         stringResource(R.string.professional_tab_reviews),
@@ -255,6 +262,18 @@ fun ProfessionalDetailScreen(
                     }
                 }
             }
+            ChapuButton(
+                text = "Llamar",
+                onClick = {
+                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
+                    try {
+                        context.startActivity(intent)
+                    } catch (e: ActivityNotFoundException) {
+                        Toast.makeText(context, "No hay ninguna app para llamar", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
 
         // Botones inferiores reutilizando ChapuButton

@@ -21,6 +21,11 @@ import com.chapuza.chapuzappandroid.core.ui.components.ChapuButton
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButtonVariant
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTopBar
 import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
+import android.content.ActivityNotFoundException
+import android.widget.Toast
 
 @Composable
 fun AppointmentDetailScreen(
@@ -36,6 +41,7 @@ fun AppointmentDetailScreen(
     onCancel: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -66,6 +72,20 @@ fun AppointmentDetailScreen(
                 duration = duration,
                 price = appointment.price,
                 professionalName = appointment.professionalName,
+            )
+
+            ChapuButton(
+                text = "Ver en el mapa", // TODO: pasar a strings.xml
+                onClick = {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=${Uri.encode(address)}"))
+                    try {
+                        context.startActivity(intent)
+                    } catch (e: ActivityNotFoundException) {
+                        Toast.makeText(context, "No hay ninguna app de mapas", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+                variant = ChapuButtonVariant.Secondary,
             )
 
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
