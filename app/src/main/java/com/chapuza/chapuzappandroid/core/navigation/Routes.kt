@@ -20,4 +20,6 @@ sealed class Routes(val route: String) {
     object MessagesRoute : Routes("messages")
     @Serializable
     object LoginRoute : Routes("login")
+    @Serializable
+    object RegisterRoute : Routes("register")
 }

@@ -1,6 +1,5 @@
 package com.chapuza.chapuzappandroid.features.auth.presentation
 
-import android.util.Patterns
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,127 +7,113 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Place
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButton
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuButtonVariant
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTextField
 import com.chapuza.chapuzappandroid.core.ui.components.ChapuTopBar
-import com.chapuza.chapuzappandroid.core.ui.theme.ChapuZappAndroidTheme
 
 @Composable
 fun RegisterScreen(
-    onRegisterClick: () -> Unit,
+    onRegisterSuccess: () -> Unit,
     onLoginClick: () -> Unit,
+    viewModel: RegisterViewModel = hiltViewModel(),
 ) {
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
-    var address by remember { mutableStateOf("") }
-    var submitted by remember { mutableStateOf(false) }
-    val nameError: String? = if (submitted && name.isBlank()) "Introduce tu nombre" else null
-    val emailError: String? =
-        if (submitted && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) "Introduce un correo válido" else null
-    val passwordError: String? = if (submitted && password.length < 8) "Mínimo 8 caracteres" else null
-    val confirmError: String? = if (submitted && confirmPassword != password) "Las contraseñas no coinciden" else null
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(uiState.success) {
+        if (uiState.success) onRegisterSuccess()
+    }
 
     Column(
-        Modifier
+        modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(MaterialTheme.colorScheme.background),
     ) {
         ChapuTopBar(title = "Crear cuenta", onBack = onLoginClick)
 
         Column(
             modifier = Modifier
                 .weight(1f)
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             ChapuTextField(
-                value = name,
-                onValueChange = { name = it },
+                value = uiState.nombre,
+                onValueChange = viewModel::onNombreChange,
                 label = "Nombre y apellidos",
                 leadingIcon = Icons.Outlined.Person,
-                errorMessage = nameError
+                errorMessage = uiState.nombreError,
             )
             ChapuTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = uiState.email,
+                onValueChange = viewModel::onEmailChange,
                 label = "Correo electrónico",
                 leadingIcon = Icons.Outlined.Email,
-                errorMessage = emailError
+                errorMessage = uiState.emailError,
             )
             ChapuTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = uiState.password,
+                onValueChange = viewModel::onPasswordChange,
                 label = "Contraseña (mín. 8 caracteres)",
                 leadingIcon = Icons.Outlined.Lock,
                 visualTransformation = PasswordVisualTransformation(),
-                errorMessage = passwordError
+                errorMessage = uiState.passwordError,
             )
             ChapuTextField(
-                value = confirmPassword,
-                onValueChange = { confirmPassword = it },
+                value = uiState.confirmPassword,
+                onValueChange = viewModel::onConfirmChange,
                 label = "Repetir contraseña",
                 leadingIcon = Icons.Outlined.Lock,
                 visualTransformation = PasswordVisualTransformation(),
-                errorMessage = confirmError
+                errorMessage = uiState.confirmError,
             )
             ChapuTextField(
-                value = address,
-                onValueChange = { address = it },
+                value = uiState.direccion,
+                onValueChange = viewModel::onDireccionChange,
                 label = "Dirección",
                 leadingIcon = Icons.Outlined.Place,
             )
-
+            uiState.error?.let {
+                Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodyMedium)
+            }
+            if (uiState.loading) {
+                CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
+            }
         }
         ChapuButton(
-            text = "Crear cuenta",
+            text = if (uiState.loading) "Creando cuenta…" else "Crear cuenta",
+            onClick = viewModel::register,
+            enabled = !uiState.loading,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            onClick = {
-                submitted = true
-                val nameOk = (name.isNotBlank())
-                val emailOk = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-                val passwordOk = password.length >= 8
-                val confirmPasswordOk = (password == confirmPassword)
-                if (nameOk && emailOk && passwordOk && confirmPasswordOk) {
-                    onRegisterClick()
-                }
-            })
+        )
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.CenterVertically
-        )
-        {
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Text("¿Ya tienes cuenta?", color = MaterialTheme.colorScheme.onSurfaceVariant)
             ChapuButton(text = "Inicia sesión", onClick = onLoginClick, variant = ChapuButtonVariant.Text)
         }
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun RegisterScreenPreview() {
-    ChapuZappAndroidTheme {
-        RegisterScreen(onRegisterClick = {}, onLoginClick = {})
     }
 }
